@@ -1,0 +1,14 @@
+{
+	"request": {
+		"requestNumber":"XYZ-123-456789",
+		"requestDate": "2021-01-01",
+		"purpose": "Application Invitation"
+	},
+	"emailDetail":{
+		"from":"jd.ramkumar@gmail.com",
+		"to":"iomega.azure@gmail.com",
+		"subject":"Simple Subject",
+		"body":"This is a simple body",
+		"isBodyHtml":false
+	}
+}

@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  emailservice:
+    container_name: emailserver
+    image: iomega/casestudy-emailservice
+    env_file: email-service-settings.env
+    networks:
+      - my-network
+  
+  calculationservice:
+    container_name: calculationserver
+    image: iomega/casestudy-calculationservice
+    env_file: calculation-offer-service-settings.env
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+      
+  identityverificationservice:
+    container_name: identityverificationserver
+    image: iomega/casestudy-identityverificationservice
+    env_file: identity-verification-service-settings.env
+    networks:
+      - my-network
+      
+  identityverificationresponsedaemon:
+    container_name: identityverificationresponsedaemon
+    image: iomega/casestudy-identityverificationresponseservice
+    env_file: creditcard-identity-verification-response-daemon-settings.env
+    networks:
+      - my-network
+      
+  creditcardservice:
+    container_name: creditcardserver
+    image: iomega/casestudy-creditcardservice
+    env_file: creditcard-service-settings.env
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+      
+networks:
+  default:
+    external:
+      name: my-network        

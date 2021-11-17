@@ -1,0 +1,6 @@
+requests
+pika
+pymongo
+py-mon
+colorama
+watchdog

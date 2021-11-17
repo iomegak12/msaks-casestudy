@@ -1,0 +1,10 @@
+{
+	"request": {
+		"requestNumber":"REQ10001-949-38918"
+	},
+	"personalDetailVerificationStatus":"VALIDATED",
+	"addressVerificationStatus":"VALIDATED",
+	"employmentDetailVerificationStatus": "VALIDATED",
+	"identificationDetailVerificationStatus": "VALIDATED",
+	"messages": []
+}

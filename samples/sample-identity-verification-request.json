@@ -1,0 +1,52 @@
+{
+	"request": {
+		"requestNumber":"AAAA-BBBB-1234",
+		"requestDate": "2021-01-01"
+	},
+	"personalDetail": {
+		"firstName": "Ramkumar",
+		"middleName": "J",
+		"lastName": "Damodaran",
+		"age": 33,
+		"gender": "MALE",
+		"dateOfBirth": "1977-04-23",
+		"nationality": "INDIAN",
+		"PAN": "AEFPR8394834",
+		"residentAddress": {
+			"addressLine1": "3849 ABC Street",
+			"addressLine2": "Mahadevpura",
+			"landmark": "AE",
+			"city": "Bangalore",
+			"state": "KA",
+			"pin": "560048",
+			"preferredMailingAddress": true,
+			"stdCode": "080",
+			"telephoneNumber": "384983984",
+			"mobile": "9886082730",
+			"email": "jd.ramkumar@gmail.com"
+		}
+	},
+	"employmentDetail": {
+		"employmentType": "SALARIED",
+		"companyName": "ALPHASOURCE",
+		"designation": "Executive Director",
+		"officeAddress": {
+			"addressLine1": "128 IJK Avenue",
+			"addressLine2": "Kalyan Nagar",
+			"landmark": "AE",
+			"city": "Bangalore",
+			"state": "KA",
+			"pin": "560043",
+			"stdCode": "080",
+			"telephoneNumber": "12345678"
+		},
+		"grossAnnualIncome": 1200000,
+		"otherIncome": 230000,
+		"percentageOfLoanServicingGrossIncome": 20,
+		"incomeTaxProvided": true
+	},
+	"identificationDetail": {
+		"identityType": "PASSPORT",
+		"identificationNumber": "8399-3849842-3984"
+	}
+}

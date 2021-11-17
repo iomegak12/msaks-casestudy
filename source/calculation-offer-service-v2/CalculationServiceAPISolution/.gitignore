@@ -1,0 +1,11 @@
+node_modules
+
+.vs
+
+.git
+
+*\bin
+*\**\bin
+
+*\obj
+*\**\obj

@@ -1,0 +1,20 @@
+{
+	"request": {
+		"requestNumber":"REQ10001-949-38918",
+		"requestDate": "2021-01-01"
+	},
+	"offerDetails": {
+		"rateOfInterest":13.99,
+		"creditLimit":230000,
+		"petrolTransactionCharges":2,
+		"railwayTicketPurchaseFee":100,
+		"foreignCurrencyTransactionFee":200,
+		"addonCardFee":0,
+		"renewalFee":0,
+		"annualFee":800,
+		"replacementOfLostCard":0,
+		"issuingCharges":0,
+		"latePaymentFee":100,
+		"chequeReturnFee":100
+	}
+}

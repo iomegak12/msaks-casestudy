@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: vweb
+  labels:
+    kiamol: ch15
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: training-customer-service.com
+    http:
+      paths:
+      - path: /(|$)(.*)
+        backend:
+          serviceName: casestudy-calcandofferservice-service
+          servicePort: 8080
+      - path: /v1(/|$)(.*)
+        backend:
+          serviceName: casestudy-calcandofferservice-service
+          servicePort: 8080
+
+          
+          

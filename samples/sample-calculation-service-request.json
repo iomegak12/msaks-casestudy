@@ -1,0 +1,23 @@
+{
+	"request": {
+		"requestNumber":"REQ10001-949-38918",
+		"requestDate": "2021-01-01",
+		"cardCategory": "SILVER",
+		"internationalUseRequestAmount": 500,
+		"cardType": "VISA"
+	},
+	"employmentDetail": {
+		"employmentType": "SALARIED",
+		"companyName": "ALPHASOURCE",
+		"designation": "Executive Director",
+		"grossAnnualIncome": 1200000,
+		"otherIncome": 230000,
+		"percentageOfLoanServicingGrossIncome": 20,
+		"incomeTaxProvided": true
+	},
+	"bankRelationshipDetail": {
+		"isExistingCustomer": true,
+		"accountNumber": "AC983983204",
+		"relationType": "SAVINGS"
+	}
+}
