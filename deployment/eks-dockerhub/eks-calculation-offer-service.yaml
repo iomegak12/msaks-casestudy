@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: casestudy-calcandofferservice-container
-        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ram-casestudy-calculation-service
+        image: iomega/casestudy-calculation-service:latest
         ports:
         - containerPort: 8080
         env:

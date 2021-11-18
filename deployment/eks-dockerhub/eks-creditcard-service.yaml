@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
       - name: casestudy-creditcard-service-container
-        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ram-casestudy-creditcard-service
+        image: iomega/casestudy-creditcard-service
         ports:
         - containerPort: 80
         env:

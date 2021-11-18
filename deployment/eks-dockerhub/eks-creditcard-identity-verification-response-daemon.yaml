@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
       - name: casestudy-identity-verification-response-service-container
-        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ram-casestudy-identity-verification-deamon
+        image: iomega/casestudy-identity-verification-daemon
         env:
         - name: CLOUDAMQP_URL
           valueFrom:

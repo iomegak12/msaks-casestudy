@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: casestudy-emailservice-container
-        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ram-casestudy-emailservice
+        image: iomega/casestudy-email-service
         env:
         - name: CLOUDAMQP_URL
           valueFrom:

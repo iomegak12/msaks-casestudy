@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: casestudy-calcandofferservice-config-map
+  name: casestudy-calcandofferservice-config-map-v2
   labels:
     env: staging
-    businessUnit: calculationsandoffers
+    businessUnit: calculationsandoffersv2
 data:
   ASPNETCORE_URLS: http://*:8080
   ASPNETCORE_ENVIRONMENT: Development
@@ -15,43 +15,43 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: casestudy-calcandofferservice-deployment
+  name: casestudy-calcandofferservice-deployment-v2
   labels:
     env: staging
-    businessUnit: calculationsandoffers
+    businessUnit: calculationsandoffersv2
 spec:
   replicas: 2
   selector:
     matchExpressions:
     - {key: env, operator: In, values: ['staging']}
-    - {key: businessUnit, operator: In, values: ['calculationsandoffers']}
+    - {key: businessUnit, operator: In, values: ['calculationsandoffersv2']}
   template:
     metadata:
-      name: casestudy-calcandofferservice-pod
+      name: casestudy-calcandofferservice-podv2
       labels:
         env: staging
-        businessUnit: calculationsandoffers
+        businessUnit: calculationsandoffersv2
     spec:
       containers:
-      - name: casestudy-calcandofferservice-container
-        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ram-casestudy-calculation-service
+      - name: casestudy-calcandofferservice-containerv2
+        image: iomega/casestudy-calculation-service:v2
         ports:
         - containerPort: 8080
         env:
         - name: ASPNETCORE_URLS
           valueFrom:
             configMapKeyRef:
-              name: casestudy-calcandofferservice-config-map
+              name: casestudy-calcandofferservice-config-map-v2
               key: ASPNETCORE_URLS
         - name: ASPNETCORE_ENVIRONMENT
           valueFrom:
             configMapKeyRef:
-              name: casestudy-calcandofferservice-config-map
+              name: casestudy-calcandofferservice-config-map-v2
               key: ASPNETCORE_ENVIRONMENT
         - name: MONGO_CONNECTION_STRING
           valueFrom:
             configMapKeyRef:
-              name: casestudy-calcandofferservice-config-map
+              name: casestudy-calcandofferservice-config-map-v2
               key: MONGO_CONNECTION_STRING
 
 ---
@@ -59,10 +59,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: casestudy-calcandofferservice-service
+  name: casestudy-calcandofferservice-servicev2
   labels:
     env: staging
-    businessUnit: calculationsandoffers
+    businessUnit: calculationsandoffersv2
 spec:
   type: ClusterIP
   ports:
@@ -70,6 +70,6 @@ spec:
     port: 8080
   selector:
     env: staging
-    businessUnit: calculationsandoffers
+    businessUnit: calculationsandoffersv2
 
         
