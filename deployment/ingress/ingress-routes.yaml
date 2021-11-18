@@ -1,14 +1,14 @@
 apiVersion: networking.k8s.io/v1beta1 
 kind: Ingress
 metadata:
-  name: vweb
+  name: calculation-offer-service
   labels:
-    kiamol: ch15
+    kiamol: scbtraining
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-  - host: training-customer-service.com
+  - host: calculationservices.scb.com
     http:
       paths:
       - path: /(|$)(.*)
@@ -19,6 +19,7 @@ spec:
         backend:
           serviceName: casestudy-calcandofferservice-service
           servicePort: 8080
-
-          
-          
+      - path: /v2(/|$)(.*)
+        backend:
+          serviceName: casestudy-calcandofferservice-servicev2
+          servicePort: 8080
