@@ -5,7 +5,7 @@ pipeline {
       agent any
       environment {
         CALCULATION_SERVICE_IMAGE = 'ramkumar-casestudy-calculation-service'
-        ACD_ID = '854669732775.dkr.ecr.ap-south-1.amazonaws.com'
+        ACR_ID = '854669732775.dkr.ecr.ap-south-1.amazonaws.com'
       }
       steps {
         dir(path: 'source/calculation-offer-service-v2/CalculationServiceAPISolution') {
