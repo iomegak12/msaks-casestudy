@@ -26,14 +26,9 @@ pipeline {
           }
         }
 
-        stage('ECR Login') {
-          steps {
-            sh 'docker login --username AWS --password $ACR_PASSWORD $ACR_ID'
-          }
-        }
-
         stage('Push Image') {
           steps {
+            sh 'docker login --username AWS --password $ACR_PASSWORD $ACR_ID'
             sh 'docker push $ACR_ID/$CALCULATION_SERVICE_IMAGE:latest'
           }
         }
