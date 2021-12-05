@@ -26,10 +26,11 @@ pipeline {
           }
         }
 
-        stage('Push Image') {
+        stage('Login, Push and Logout') {
           steps {
             sh 'docker login --username AWS --password $ACR_PASSWORD $ACR_ID'
             sh 'docker push $ACR_ID/$CALCULATION_SERVICE_IMAGE:latest'
+            sh 'docker logout'
           }
         }
 
