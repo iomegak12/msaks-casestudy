@@ -28,7 +28,8 @@ pipeline {
 
         stage('ECR Login') {
           steps {
-            sh 'aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ACR_ID'
+            sh 'ACR_PASSWORD=$(aws ecr get-login-password --region $REGION)'
+            sh 'docker login --username AWS --password $ACR_PASSWORD $ACR_ID'
           }
         }
 
