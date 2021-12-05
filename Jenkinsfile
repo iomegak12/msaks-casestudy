@@ -15,10 +15,10 @@ pipeline {
 
 '''
           sh 'echo Current Image Name : $CALCULATION_SERVICE_IMAGE $BUILD_NUMBER'
+          sh 'docker build -t $CALCULATION_SERVICE_IMAGE .'
+          sh 'docker tag $CALCULATION_SERVICE_IMAGE:latest $ACR_ID/$CALCULATION_SERVICE_IMAGE:latest'
         }
 
-        sh 'docker build -t $CALCULATION_SERVICE_IMAGE .'
-        sh 'docker tag $CALCULATION_SERVICE_IMAGE:latest $ACR_ID/$CALCULATION_SERVICE_IMAGE:latest'
       }
     }
 
