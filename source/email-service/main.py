@@ -2,7 +2,8 @@ import pika
 import sys
 import os
 import json
-import boto3
+import smtplib
+
 from pymongo import MongoClient
 
 url = os.environ.get("CLOUDAMQP_URL")
@@ -11,24 +12,17 @@ if url is None:
     print("Invalid AMQP URL Specified!")
     exit()
 
-ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY")
+smtp_host = os.environ.get("SMTP_HOST")
 
-if ACCESS_KEY is None:
-    print("Invalid AWS Access Key Specified!")
+if smtp_host is None:
+    print("Invalid SMTP Host Specified!")
     exit()
 
-SECRET_KEY = os.environ.get("AWS_ACCESS_SECRET_KEY")
+smtp_port = os.environ.get("SMTP_PORT")
 
-if SECRET_KEY is None:
-    print("Invalid AWS Access Secret Key Specified!")
+if smtp_port is None:
+    print("Invalid SMTP Port Specified!")
     exit()
-
-REGION = os.environ.get("AWS_REGION")
-
-if REGION is None:
-    print("Invalid AWS Region Specified!")
-    exit()
-
 
 mongoDbConnectionUrl = os.environ.get("MONGO_CONNECTION_STRING")
 
@@ -43,32 +37,16 @@ if queue_name is None:
     exit()
 
 
-def send_email(name, source, subject, message, to):
-    emailService = boto3.client("ses",
-                                aws_access_key_id=ACCESS_KEY,
-                                aws_secret_access_key=SECRET_KEY,
-                                region_name=REGION)
+def send_email(source, subject, message, to):
+    body = 'Subject: {}\n\n{}'.format(subject, message)
 
-    response = emailService.send_email(
-        Destination={
-            'ToAddresses': [to]
-        },
-        Message={
-            'Body': {
-                'Text': {
-                    'Charset': 'UTF-8',
-                    'Data': message
-                },
-            },
-            'Subject': {
-                'Charset': 'UTF-8',
-                'Data': subject
-            }
-        },
-        Source=source
-    )
+    try:
+        smtpObj = smtplib.SMTP(smtp_host, smtp_port)
+        smtpObj.sendmail(to, source, body)
 
-    return response
+        print("Mail has been sent successfully!")
+    except smtplib.SMTPException as error:
+        print("Error Occurred, Details : % s" % str(error))
 
 
 def add_database_record(requestNumber, emailRequest):
@@ -104,7 +82,7 @@ def process_message(body):
     body = emailRequest["emailDetail"]["body"]
     isBodyHtml = emailRequest["emailDetail"]["isBodyHtml"]
 
-    send_email(name=fromEmail, source=fromEmail,
+    send_email(source=fromEmail,
               subject=subject, message=body, to=to)
 
 

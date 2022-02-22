@@ -6,9 +6,9 @@ metadata:
     env: staging
     businessUnit: calculationsandoffers
 data:
+  MONGO_CONNECTION_STRING: mongodb://root:Prestige@mongodb-service:27017/
   ASPNETCORE_URLS: http://*:8080
   ASPNETCORE_ENVIRONMENT: Development
-  MONGO_CONNECTION_STRING: mongodb://root:Prestige@mongodb-service:27017/
 
 ---
 
@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: casestudy-calcandofferservice-container
-        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ram-casestudy-calculation-service
+        image: 142198642907.dkr.ecr.ap-south-1.amazonaws.com/ramkumar-casestudy-calculation-service:latest
         ports:
         - containerPort: 8080
         env:

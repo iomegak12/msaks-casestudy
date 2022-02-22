@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
       - name: casestudy-identity-verification-response-service-container
-        image: iomega/tiaa-identity-verification-response-daemon
+        image: iomega/ms-casestudy-identity-verification-response-daemon
         env:
         - name: CLOUDAMQP_URL
           valueFrom:

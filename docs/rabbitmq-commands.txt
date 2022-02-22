@@ -1,0 +1,11 @@
+docker run --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+curl http://{hostname}:15672/cli/rabbitmqadmin --output rabbitmqadmin
+
+curl https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/v3.9.9/deps/rabbitmq_management/bin/rabbitmqadmin --output rabbitmqadmin
+
+python rabbitmqadmin -u guest -p guest -V / -H localhost -P 15672  declare queue name=queue1 durable=true
+
+python rabbitmqadmin -u guest -p guest -V / -H localhost -P 15672 publish routing_key=queue1 payload="test data"
+
+python rabbitmqadmin -u guest -p guest -V / -H localhost -P 15672 get queue=queue1 ackmode=ack_requeue_false

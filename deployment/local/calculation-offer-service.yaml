@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: casestudy-calcandofferservice-container
-        image: iomega/tiaa-calculations-offers-service
+        image: iomega/ms-casestudy-calculation-service
         ports:
         - containerPort: 8080
         env:

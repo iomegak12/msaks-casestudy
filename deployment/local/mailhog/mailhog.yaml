@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailhog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailhog
+  template:
+    metadata:
+      labels:
+        app: mailhog
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mailhog-k8s
+        image: mailhog/mailhog:latest
+        ports:
+          - name: ui
+            protocol: TCP
+            containerPort: 8025
+          - name: server
+            protocol: TCP
+            containerPort: 1025
+        imagePullPolicy: Always
+              
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: mailhog
+spec:
+  type: ClusterIP
+  ports:
+   - name: ui
+     protocol: TCP
+     port: 8025
+     targetPort: 8025
+   - name: server
+     protocol: TCP
+     port: 1025
+     targetPort: 1025
+  selector:
+    app: mailhog           

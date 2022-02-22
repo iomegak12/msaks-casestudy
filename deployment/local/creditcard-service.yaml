@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
       - name: casestudy-creditcard-service-container
-        image: iomega/tiaa-credit-card-service
+        image: iomega/ms-casestudy-creditcard-service
         ports:
         - containerPort: 80
         env:
