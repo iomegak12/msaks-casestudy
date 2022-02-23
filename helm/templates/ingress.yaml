@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: calculations-offers-service
+  labels:
+    businessUnit: operations
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: calculationsandoffersservice.microsoft.com
+      http:
+        paths:
+          - path: /(|$)(.*)
+            backend:
+              serviceName: casestudy-calcandofferservice-service
+              servicePort: 8080
+          - path: /v1/(|$)(.*)
+            backend:
+              serviceName: casestudy-calcandofferservice-service
+              servicePort: 8080
+          - path: /v2/(|$)(.*)
+            backend:
+              serviceName: casestudy-calcandofferservice-service-v2
+              servicePort: 8080
