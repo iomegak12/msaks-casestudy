@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: casestudy-calcandofferservice-deployment
+  labels:
+    env: staging
+    businessUnit: calculationsandoffers
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchExpressions:
+      - { key: env, operator: In, values: ["staging"] }
+      - { key: businessUnit, operator: In, values: ["calculationsandoffers"] }
+  template:
+    metadata:
+      name: casestudy-calcandofferservice-pod
+      labels:
+        env: staging
+        businessUnit: calculationsandoffers
+    spec:
+      containers:
+        - name: casestudy-calcandofferservice-container
+          image: {{ .Values.container.image }}
+          ports:
+            - containerPort: {{ .Values.container.port }}
+          env:
+            - name: ASPNETCORE_URLS
+              valueFrom:
+                configMapKeyRef:
+                  name: casestudy-calcandofferservice-config-map
+                  key: ASPNETCORE_URLS
+            - name: ASPNETCORE_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: casestudy-calcandofferservice-config-map
+                  key: ASPNETCORE_ENVIRONMENT
+            - name: MONGO_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: casestudy-calcandofferservice-config-map
+                  key: MONGO_CONNECTION_STRING

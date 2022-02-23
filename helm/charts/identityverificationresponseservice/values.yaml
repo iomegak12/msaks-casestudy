@@ -1,0 +1,12 @@
+configuration:
+  CLOUDAMQP_URL: amqp://guest:guest@rabbitmq:5672/
+  VERIFICATION_RESPONSE_QUEUE: verification-outputs-queue
+
+deployment:
+  replicas: 1
+
+container:
+  image: iomegacontainerregistry.azurecr.io/identityverificationresponsedaemon:latest
+
+secret:
+  MONGO_CONNECTION_STRING: bW9uZ29kYjovL3Jvb3Q6UHJlc3RpZ2VAbW9uZ29kYi1zZXJ2aWNlOjI3MDE3Lw==

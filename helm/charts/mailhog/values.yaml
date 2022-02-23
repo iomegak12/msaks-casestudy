@@ -1,0 +1,13 @@
+container:
+  containerImage: mailhog/mailhog:latest
+  uiPort: 8025
+  serverPort: 1025
+
+deployment:
+  replicaCount: 1
+
+service:
+  type: ClusterIP
+  protoco: TCP
+  uiPort: 8025
+  serverPort: 1025

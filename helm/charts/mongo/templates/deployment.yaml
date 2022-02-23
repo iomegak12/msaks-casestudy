@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    env: staging
+    businessUnit: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: staging
+      businessUnit: database
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        env: staging
+        businessUnit: database
+        app: mongodb
+    spec:
+      containers:
+      - name: db
+        image: {{ .Values.container.image }}
+        ports:
+        - containerPort: {{ .Values.container.containerPort }}
+        envFrom:
+        - secretRef:
+            name: mongodb-secret
+        volumeMounts:
+        - name: mongodb-configuration-file
+          mountPath: /etc/mongod.conf
+          readOnly: true
+        - name: mongodb-persistent-storage
+          mountPath: /data/db
+      volumes:
+      - name: mongodb-configuration-file
+        configMap:
+          name: mongodb-config-file    
+      - name: mongodb-persistent-storage
+        persistentVolumeClaim:
+          claimName: azure-managed-disk

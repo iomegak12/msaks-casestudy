@@ -1,0 +1,24 @@
+configuration:
+  FLASK_APP: ./api.py
+  CLOUDAMQP_URL: amqp://guest:guest@rabbitmq:5672/
+  CALCULATION_SERVICE_URL: http://casestudy-calcandofferservice-service:8080/api/calculation-services/process
+  VERIFICATION_INPUTS_QUEUE: verification-inputs-queue
+  EMAIL_REQUESTS_QUEUE: email-requests-queue
+  FROM_EMAIL_ADDRESS: iomega.azure@gmail.com
+  FLASK_DEBUG: true
+  FLASK_ENV: development
+  FLASK_RUN_PORT: 80
+
+secret:
+  MONGO_CONNECTION_STRING: bW9uZ29kYjovL3Jvb3Q6UHJlc3RpZ2VAbW9uZ29kYi1zZXJ2aWNlOjI3MDE3Lw==
+
+deployment:
+  replicas: 1
+
+container:
+  port: 80
+  image: iomegacontainerregistry.azurecr.io/creditcardservice:latest
+
+service:
+  type: LoadBalancer
+  port: 80

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casestudy-emailservice-config-map
+  labels:
+    env: staging
+    businessUnit: emailservice
+data:
+  CLOUDAMQP_URL: {{ .Values.configuration.CLOUDAMQP_URL }}
+  AWS_REGION: {{ .Values.configuration.AWS_REGION }}
+  MONGO_CONNECTION_STRING: {{ .Values.configuration.MONGO_CONNECTION_STRING }}
+  EMAIL_REQUESTS_QUEUE: {{ .Values.configuration.EMAIL_REQUESTS_QUEUE }}
+  SMTP_HOST: {{ .Values.configuration.SMTP_HOST }}
+  SMTP_PORT: {{ .Values.configuration.SMTP_PORT | quote }}

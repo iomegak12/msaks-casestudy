@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret1
+  labels:
+    env: staging
+    businessUnit: database
+data:
+  MONGO_INITDB_ROOT_PASSWORD: UHJlc3RpZ2U=
+stringData:
+  MONGO_INITDB_ROOT_USERNAME: root
+
+---      
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-config-file1
+data:
+  mongod.conf: |
+    systemLog:
+       destination: file
+       path: "/var/log/mongodb/mongod.log"
+       logAppend: true
+    storage:
+       journal:
+          enabled: true
+    processManagement:
+       fork: true
+    net:
+       bindIp: 127.0.0.1
+       port: 27017
+    setParameter:
+       enableLocalhostAuthBypass: false
+      
+---      
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment1
+  labels:
+    env: staging
+    businessUnit: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: staging
+      businessUnit: database
+      app: mongodb1
+  template:
+    metadata:
+      labels:
+        env: staging
+        businessUnit: database
+        app: mongodb1
+    spec:
+      containers:
+      - name: db1
+        image: mongo
+        ports:
+        - containerPort: 27017
+        envFrom:
+        - secretRef:
+            name: mongodb-secret1
+        volumeMounts:
+        - name: mongodb-configuration-file
+          mountPath: /etc/mongod.conf
+          readOnly: true
+        - name: mongodb-persistent-storage
+          mountPath: /data/db
+      volumes:
+      - name: mongodb-configuration-file
+        configMap:
+          name: mongodb-config-file1    
+      - name: mongodb-persistent-storage
+        persistentVolumeClaim:
+          claimName: iomegaazurefile
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service1
+spec:
+  type: ClusterIP
+  selector:
+    app: mongodb1
+  ports:
+  - protocol: TCP
+    port: 27017  

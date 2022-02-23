@@ -1,0 +1,16 @@
+configuration:
+  MONGO_CONNECTION_STRING: mongodb://root:Prestige@mongodb-service:27017/
+  ASPNETCORE_URLS: http://*:8080
+  ASPNETCORE_ENVIRONMENT: Development
+
+service:
+  type: ClusterIP
+  port: 8080
+
+container:
+  port: 8080
+  image: iomegacontainerregistry.azurecr.io/calculationsandoffersservice:latest
+
+deployment:
+  replicas: 2
+

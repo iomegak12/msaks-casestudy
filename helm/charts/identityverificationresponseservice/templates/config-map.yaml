@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casestudy-identity-verification-response-service-config-map
+  labels:
+    env: staging
+    businessUnit: identity-verification-response-service
+data:
+  CLOUDAMQP_URL: {{ .Values.configuration.CLOUDAMQP_URL }}
+  VERIFICATION_RESPONSE_QUEUE: {{ .Values.configuration.VERIFICATION_RESPONSE_QUEUE }}

@@ -1,0 +1,18 @@
+service:
+  type: ClusterIP
+  management:
+    protocol: TCP
+    port: 15672
+
+  amqp:
+    protocol: TCP
+    port: 5672
+
+container:
+  management:
+    protocol: TCP
+    port: 15672
+  amqp:
+    protocol: TCP
+    port: 5672
+

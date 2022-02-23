@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casestudy-creditcard-service-config-map
+  labels:
+    env: staging
+    businessUnit: creditcards
+data:
+  FLASK_APP: {{ .Values.configuration.FLASK_APP }}
+  CLOUDAMQP_URL: {{ .Values.configuration.CLOUDAMQP_URL }}
+  CALCULATION_SERVICE_URL: {{ .Values.configuration.CALCULATION_SERVICE_URL }}
+  VERIFICATION_INPUTS_QUEUE: {{ .Values.configuration.VERIFICATION_INPUTS_QUEUE }}
+  EMAIL_REQUESTS_QUEUE: {{ .Values.configuration.EMAIL_REQUESTS_QUEUE }}
+  FROM_EMAIL_ADDRESS: {{ .Values.configuration.FROM_EMAIL_ADDRESS }}
+  FLASK_DEBUG: {{ .Values.configuration.FLASK_DEBUG | quote }}
+  FLASK_ENV: {{ .Values.configuration.FLASK_ENV | quote }}
+  FLASK_RUN_PORT: {{ .Values.configuration.FLASK_RUN_PORT | quote }}

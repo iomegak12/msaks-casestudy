@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mongo
+description: Helm Chart for MongoDB of the Case Study Application
+
+type: application
+version: 0.1.0
+appVersion: 1.16.0

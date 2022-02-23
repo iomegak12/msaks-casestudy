@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mailhog
+description: Helm Chart for Mailhog of the Case Study Application
+
+type: application
+version: 0.1.0
+appVersion: 1.16.0

@@ -1,0 +1,17 @@
+echo %random%
+set AKS_STORAGE_ACCOUNT=iomegastorage%random%
+echo %AKS_STORAGE_ACCOUNT%
+set RESOURCE_GROUP=casestudyresourcegroup
+set RESOURCE_LOCATION=westus2
+set AKS_SHARE_NAME=iomegafileshare
+az storage account create -n %AKS_STORAGE_ACCOUNT% -g %RESOURCE_GROUP% -l %RESOURCE_LOCATION% --sku Standard_LRS
+az storage account show-connection-string -n %AKS_STORAGE_ACCOUNT% -g %RESOURCE_GROUP% -o tsv
+set STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=iomegastorage1109;AccountKey=k8lnkwLLkmpEd+LWpjJo3xCG2HRw2LLDqERxCW1NJEepQB9J+gxkRXSbMIeXsRlmC0Q+EYKZXsIhapH17PY5wg==
+az storage share create -n %AKS_SHARE_NAME% --connection-string %STORAGE_CONNECTION_STRING% 
+az storage account keys list --resource-group %RESOURCE_GROUP% --account-name %AKS_STORAGE_ACCOUNT% --query "[0].value" -o tsv
+set STORAGE_KEY=k8lnkwLLkmpEd+LWpjJo3xCG2HRw2LLDqERxCW1NJEepQB9J+gxkRXSbMIeXsRlmC0Q+EYKZXsIhapH17PY5wg==
+
+kubectl create secret generic azure-secret --from-literal=azurestorageaccountname=%AKS_STORAGE_ACCOUNT% --from-literal=azurestorageaccountkey=%STORAGE_KEY% -n casestudy
+kubectl apply -f aks-azurefile-pv-pvc.yaml -n casestudy
+kubectl apply -f aks-azurefile-pod.yaml -n casestudy
+kubectl apply -f aks-azurefile-pod-2.yaml -n casestudy

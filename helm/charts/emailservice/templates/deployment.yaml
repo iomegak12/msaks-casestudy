@@ -1,0 +1,51 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: casestudy-emailservice
+  labels:
+    env: staging
+    businessUnit: emailservice
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchExpressions:
+    - {key: env, operator: In, values: ['staging']}
+    - {key: businessUnit, operator: In, values: ['emailService']}
+  template:
+    metadata:
+      name: casestudy-emailservice-pod
+      labels:
+        env: staging
+        businessUnit: emailService
+    spec:
+      containers:
+      - name: casestudy-emailservice-container
+        image: {{ .Values.container.image }}
+        env:
+        - name: CLOUDAMQP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-emailservice-config-map
+              key: CLOUDAMQP_URL
+        - name: SMTP_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-emailservice-config-map
+              key: SMTP_HOST
+        - name: SMTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-emailservice-config-map
+              key: SMTP_PORT   
+        - name: MONGO_CONNECTION_STRING
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-emailservice-config-map
+              key: MONGO_CONNECTION_STRING
+        - name: EMAIL_REQUESTS_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-emailservice-config-map
+              key: EMAIL_REQUESTS_QUEUE                  
+  

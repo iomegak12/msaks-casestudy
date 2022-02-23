@@ -1,0 +1,13 @@
+configuration:
+  CLOUDAMQP_URL: amqp://guest:guest@rabbitmq:5672/
+  AWS_REGION: ap-south-1
+  MONGO_CONNECTION_STRING: mongodb://root:Prestige@mongodb-service:27017/
+  EMAIL_REQUESTS_QUEUE: email-requests-queue
+  SMTP_HOST: mailhog
+  SMTP_PORT: 1025
+
+deployment:
+  replicas: 1
+
+container:
+  image: iomegacontainerregistry.azurecr.io/emailservice:latest

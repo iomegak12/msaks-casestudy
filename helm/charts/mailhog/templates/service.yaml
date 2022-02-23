@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mailhog
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+   - name: ui
+     protocol: {{ .Values.service.protocol }}
+     port: {{ .Values.service.uiPort }}
+     targetPort: {{ .Values.container.uiPort }}
+   - name: server
+     protocol: {{ .Values.service.protocol }}
+     port: {{ .Values.service.serverPort }}
+     targetPort: {{ .Values.container.serverPort }}
+  selector:
+    app: mailhog           

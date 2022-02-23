@@ -1,0 +1,16 @@
+container:
+  containerPort: 27017
+  image: mongo:latest
+
+storage:
+  size: 5Gi
+  className: default
+  
+secrets:
+  rootPassword: UHJlc3RpZ2U=
+  rootUsername: root
+
+services:
+  servicePort: 27017
+  serviceProtocol: TCP
+  serviceType: ClusterIP

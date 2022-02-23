@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailhog
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: mailhog
+  template:
+    metadata:
+      labels:
+        app: mailhog
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mailhog-k8s
+        image: {{ .Values.container.containerImage }}
+        ports:
+          - name: ui
+            protocol: TCP
+            containerPort: {{ .Values.container.uiPort }}
+          - name: server
+            protocol: TCP
+            containerPort: {{ .Values.container.serverPort }}
+        imagePullPolicy: Always

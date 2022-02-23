@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: casestudy-identity-verification-service
+  labels:
+    env: staging
+    businessUnit: identity-verification-service
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchExpressions:
+    - {key: env, operator: In, values: ['staging']}
+    - {key: businessUnit, operator: In, values: ['identity-verification-service']}
+  template:
+    metadata:
+      name: casestudy-identity-verification-service-pod
+      labels:
+        env: staging
+        businessUnit: identity-verification-service
+    spec:
+      containers:
+      - name: casestudy-identity-verification-service-container
+        image: {{ .Values.container.image }}
+        env:
+        - name: CLOUDAMQP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-identity-verification-service-config-map
+              key: CLOUDAMQP_URL
+        - name: MONGO_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: casestudy-identity-verification-service-secret
+              key: MONGO_CONNECTION_STRING
+        - name: RESPONSE_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-identity-verification-service-config-map
+              key: RESPONSE_QUEUE
+        - name: INPUT_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-identity-verification-service-config-map
+              key: INPUT_QUEUE                  
+        volumeMounts:
+        - name: foo
+          mountPath: /etc/foo
+          readOnly: true
+      volumes:
+      - name: foo
+        secret:
+          secretName: casestudy-identity-verification-service-secret       

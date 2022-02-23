@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: casestudy-creditcard-service-deployment
+  labels:
+    env: staging
+    businessUnit: creditcards
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchExpressions:
+    - {key: env, operator: In, values: ['staging']}
+    - {key: businessUnit, operator: In, values: ['creditcards']}
+  template:
+    metadata:
+      name: casestudy-creditcard-service-pod
+      labels:
+        env: staging
+        businessUnit: creditcards
+    spec:
+      containers:
+      - name: casestudy-creditcard-service-container
+        image: {{ .Values.container.image }}
+        ports:
+        - containerPort: {{ .Values.container.port }}
+        env:
+        - name: FLASK_DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: FLASK_DEBUG
+        - name: FLASK_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: FLASK_ENV
+        - name: MONGO_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: casestudy-creditcard-service-secret
+              key: MONGO_CONNECTION_STRING
+        - name: FLASK_RUN_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: FLASK_RUN_PORT
+        - name: FLASK_APP
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: FLASK_APP
+        - name: CLOUDAMQP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: CLOUDAMQP_URL
+        - name: CALCULATION_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: CALCULATION_SERVICE_URL
+        - name: VERIFICATION_INPUTS_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: VERIFICATION_INPUTS_QUEUE
+        - name: EMAIL_REQUESTS_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: EMAIL_REQUESTS_QUEUE
+        - name: FROM_EMAIL_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: casestudy-creditcard-service-config-map
+              key: FROM_EMAIL_ADDRESS
+           
