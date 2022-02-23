@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casestudy-calcandofferservice-config-mapv2
+  labels:
+    env: staging
+    businessUnit: calculationsandoffersv2
+data:
+  MONGO_CONNECTION_STRING: {{ .Values.configuration.MONGO_CONNECTION_STRING }}
+  ASPNETCORE_URLS: {{ .Values.configuration.ASPNETCORE_URLS }}
+  ASPNETCORE_ENVIRONMENT: {{ .Values.configuration.ASPNETCORE_ENVIRONMENT }}

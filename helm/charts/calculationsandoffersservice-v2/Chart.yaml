@@ -1,0 +1,7 @@
+apiVersion: v2
+name: calculationsandoffersservice-v2
+description: Helm Chart for Calculation & Offers Service v2 of the Case Study Application
+
+type: application
+version: 0.1.0
+appVersion: 1.16.0
